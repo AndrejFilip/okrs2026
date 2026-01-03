@@ -1,24 +1,24 @@
-/* eslint-disable @next/next/no-img-element */
-
 "use client";
 
 import { useTranslation } from "react-i18next";
 import "./i18n";
 import Link from "next/link";
 import { IoBicycle } from "react-icons/io5";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { useState } from "react";
+import { RxCross1 } from "react-icons/rx";
+import { motion } from "framer-motion";
 
 export const Navbar = () => {
-  const pictureUrls = [
-    "https://cdn.suwalls.com/wallpapers/photography/bicycle-in-the-sunset-22832-1920x1080.jpg",
-  ];
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
 
   return (
-    <div {...{ className: "w-full flex flex-col items-center gap-2" }}>
+    <div>
       <div
         {...{
           className:
-            "flex flex-row gap-8 justify-center items-center font-mono text-lg",
+            "hidden sm:flex flex-row gap-8 justify-center items-center font-mono text-lg",
         }}
       >
         <IoBicycle {...{ className: "w-[50px] h-[50px]" }} />
@@ -57,14 +57,68 @@ export const Navbar = () => {
           {t("login")}
         </Link>
       </div>
-      <img
-        {...{
-          src: pictureUrls[0],
-          alt: "mountain biking",
-          className:
-            "rounded-xl max-h-[400px] w-full object-cover max-w-[min(70vw,1400px)]",
-        }}
-      />
+      <div {...{ className: "flex justify-end mr-4" }}>
+        {open ? (
+          <RxCross1
+            {...{
+              className: "sm:hidden w-[30px] h-[30px] cursor-pointer relative",
+              onClick: () => setOpen(!open),
+            }}
+          />
+        ) : (
+          <RxHamburgerMenu
+            {...{
+              className: "sm:hidden w-[30px] h-[30px] cursor-pointer relative",
+              onClick: () => setOpen(!open),
+            }}
+          />
+        )}
+        {open ? (
+          <motion.ul
+            {...{
+              className:
+                "absolute top-[60px] right-4 bg-white shadow-md rounded-md p-2 min-w-[200px] sm:hidden font-mono ",
+              initial: { opacity: 0, x: 20 },
+              animate: { opacity: 1, x: 0 },
+              transition: { duration: 0.3 },
+            }}
+          >
+            <li
+              {...{
+                className: "py-2 px-4 hover:bg-gray-100 rounded",
+              }}
+            >
+              <Link {...{ href: "https://www.mtbiker.sk", className: "block" }}>
+                {t("mtbiker")}
+              </Link>
+            </li>
+
+            <li {...{ className: "py-2 px-4 hover:bg-gray-100 rounded" }}>
+              <Link
+                {...{ href: "https://www.cykloshop.sk", className: "block" }}
+              >
+                {t("cykloshop")}
+              </Link>
+            </li>
+            <li {...{ className: "py-2 px-4 hover:bg-gray-100 rounded" }}>
+              <Link {...{ href: "https://www.canyon.com", className: "block" }}>
+                {t("canyon")}
+              </Link>
+            </li>
+            <li {...{ className: "py-2 px-4" }}>
+              <Link
+                {...{
+                  href: "/login",
+                  className:
+                    "block bg-slate-800 text-white rounded px-4 py-2 text-center hover:bg-slate-600",
+                }}
+              >
+                {t("login")}
+              </Link>
+            </li>
+          </motion.ul>
+        ) : null}
+      </div>
     </div>
   );
 };
