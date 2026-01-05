@@ -46,82 +46,122 @@ export const Sellers = () => {
   };
 
   return (
-    <motion.div
-      {...{
-        className:
-          "bg-white flex flex-col gap-4 justify-center items-center mt-4 relative",
-        initial: { x: -300 },
-        animate: { x: 0 },
-        transition: { duration: 2 },
-      }}
-    >
-      <h2 {...{ className: "text-2xl font-mono text-center mt-4" }}>
-        {t("landingPage.ourSellers")}
-      </h2>
+    <div {...{ className: "mt-20 font-mono text-slate-800" }}>
+      <span {...{ className: "text-5xl", id: "findingInfo" }}>
+        {t("landingPage.findingInfo")}
+      </span>
 
-      <motion.div
-        key={index}
+      <div
         {...{
-          initial: { opacity: 0 },
-          animate: { opacity: 1 },
-          transition: { duration: 1 },
+          className: "flex md:flex-row flex-col justify-between items-center",
         }}
       >
-        <div
-          {...{ className: "flex flex-row gap-4 justify-center items-center" }}
-        >
-          <img
-            {...{
-              src: sellers[index].logoUrl,
-              alt: sellers[index].name,
-              className:
-                "w-[120px] h-[120px] object-contain lg:w-[200px] lg:h-[200px]",
-            }}
-          />
-          <img
-            {...{
-              src: sellers[index].pictureUrl,
-              alt: sellers[index].name,
-              className:
-                "w-[120px] h-[120px] rounded-full object-cover lg:w-[200px] lg:h-[200px]",
-            }}
-          />
+        <div {...{ className: "flex flex-col gap-4 mt-4" }}>
+          <span {...{ className: "text-sm lg:w-[700px]" }}>
+            {t("landingPage.infoText_first")}
+          </span>
+          <span {...{ className: "text-sm lg:w-[700px]" }}>
+            {t("landingPage.infoText_second")}
+          </span>
+          <span {...{ className: "text-sm lg:w-[700px]" }}>
+            {t("landingPage.infoText_third")}
+          </span>
         </div>
-        <p {...{ className: "text-center font-mono w-auto lg:w-[600px]" }}>
-          {sellers[index].text}
-        </p>
-      </motion.div>
-      <Link
+        <div {...{ className: "flex flex-col gap-4 items-center" }}>
+          <span {...{ className: "text-lg font-bold" }}>
+            {t("landingPage.interested")}
+          </span>
+          <Link
+            {...{ href: "/signup" }}
+            {...{
+              className:
+                "text mono w-[200px] border border-bg-slate-800 hover:bg-slate-800 hover:text-white text-slate-800 p-4 rounded-md text-center",
+            }}
+          >
+            {t("signup")}
+          </Link>
+        </div>
+      </div>
+      <motion.div
         {...{
-          href: sellers[index].url,
           className:
-            "text-center font-mono bg-slate-800 hover:bg-slate-700 text-white w-[120px] py-2 rounded-md",
+            "bg-white flex flex-col gap-4 justify-center items-center mt-4 relative rounded-xl shadow-lg",
+          initial: { x: -300, opacity: 0 },
+          whileInView: { x: 0, opacity: 1 },
+          transition: { duration: 1 },
+          viewport: { once: true, amount: 0.3 },
         }}
       >
-        {t("landingPage.zistiViac")}
-      </Link>
-      {index < sellers.length - 1 ? (
-        <button
+        <h2 {...{ className: "text-2xl font-mono text-center mt-4" }}>
+          {t("landingPage.ourSellers")}
+        </h2>
+
+        <motion.div
+          key={index}
           {...{
-            className:
-              "mt-2 md:mt-0 md:absolute right-4 top-1/2 transform -translate-y-1/2 bg-slate-800 hover:bg-slate-700 text-white w-[40px] h-[40px] rounded-md cursor-pointer",
-            onClick: handleNext,
+            initial: { opacity: 0 },
+            animate: { opacity: 1 },
+            transition: { duration: 1 },
           }}
         >
-          {">"}
-        </button>
-      ) : null}
-      {index > 0 ? (
-        <button
+          <div
+            {...{
+              className: "flex flex-row gap-4 justify-center items-center",
+            }}
+          >
+            <img
+              {...{
+                src: sellers[index].logoUrl,
+                alt: sellers[index].name,
+                className:
+                  "w-[120px] h-[120px] object-contain lg:w-[200px] lg:h-[200px]",
+              }}
+            />
+            <img
+              {...{
+                src: sellers[index].pictureUrl,
+                alt: sellers[index].name,
+                className:
+                  "w-[120px] h-[120px] rounded-full object-cover lg:w-[200px] lg:h-[200px]",
+              }}
+            />
+          </div>
+          <p {...{ className: "text-center font-mono w-auto lg:w-[600px]" }}>
+            {sellers[index].text}
+          </p>
+        </motion.div>
+        <Link
           {...{
+            href: sellers[index].url,
             className:
-              "mt-2 md:mt-0 md:absolute left-4 top-1/2 transform -translate-y-1/2 bg-slate-800 hover:bg-slate-700 text-white w-[40px] h-[40px] rounded-md cursor-pointer",
-            onClick: handlePrevious,
+              "text-center font-mono bg-slate-800 hover:bg-slate-700 text-white w-[120px] py-2 rounded-md mb-1",
           }}
         >
-          {"<"}
-        </button>
-      ) : null}
-    </motion.div>
+          {t("landingPage.zistiViac")}
+        </Link>
+        {index < sellers.length - 1 ? (
+          <button
+            {...{
+              className:
+                "mt-2 md:mt-0 md:absolute right-4 top-1/2 transform -translate-y-1/2 bg-slate-800 hover:bg-slate-700 text-white w-[40px] h-[40px] rounded-md cursor-pointer",
+              onClick: handleNext,
+            }}
+          >
+            {">"}
+          </button>
+        ) : null}
+        {index > 0 ? (
+          <button
+            {...{
+              className:
+                "mt-2 md:mt-0 md:absolute left-4 top-1/2 transform -translate-y-1/2 bg-slate-800 hover:bg-slate-700 text-white w-[40px] h-[40px] rounded-md cursor-pointer",
+              onClick: handlePrevious,
+            }}
+          >
+            {"<"}
+          </button>
+        ) : null}
+      </motion.div>
+    </div>
   );
 };

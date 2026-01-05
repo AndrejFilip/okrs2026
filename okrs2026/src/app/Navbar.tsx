@@ -18,10 +18,12 @@ export const Navbar = () => {
       <div
         {...{
           className:
-            "hidden sm:flex flex-row gap-8 justify-center items-center font-mono text-lg",
+            "hidden sm:flex flex-row gap-8 justify-center items-center font-mono text-lg w-full bg-white  p-4 shadow-md",
         }}
       >
-        <IoBicycle {...{ className: "w-[50px] h-[50px]" }} />
+        <Link {...{ href: "/" }}>
+          <IoBicycle {...{ className: "w-[50px] h-[50px] cursor-pointer" }} />
+        </Link>
         <Link
           {...{
             href: "https://www.mtbiker.sk",
@@ -46,7 +48,15 @@ export const Navbar = () => {
         >
           {t("canyon")}
         </Link>
-
+        <Link
+          {...{
+            href: "/signup",
+            className:
+              "border border-slate-800 w-[200px] rounded-md hover:bg-slate-800 hover:text-white p-2 text-center",
+          }}
+        >
+          {t("signup")}
+        </Link>
         <Link
           {...{
             href: "/login",
@@ -103,6 +113,17 @@ export const Navbar = () => {
             <li {...{ className: "py-2 px-4 hover:bg-gray-100 rounded" }}>
               <Link {...{ href: "https://www.canyon.com", className: "block" }}>
                 {t("canyon")}
+              </Link>
+            </li>
+            <li {...{ className: "py-2 px-4" }}>
+              <Link
+                {...{
+                  href: "/signup",
+                  className:
+                    "block border border-slate-800 text-slate rounded px-4 py-2 text-center hover:bg-slate-800 hover:text-white",
+                }}
+              >
+                {t("signup")}
               </Link>
             </li>
             <li {...{ className: "py-2 px-4" }}>
