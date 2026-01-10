@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import "./i18n";
 import Link from "next/link";
 import { IoBicycle } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -59,7 +58,7 @@ export const Navbar = () => {
         </Link>
         <Link
           {...{
-            href: "/login",
+            href: "/auth/login",
             className:
               "bg-slate-800 text-white w-[150px] rounded-md hover:bg-slate-600 p-2 text-center",
           }}

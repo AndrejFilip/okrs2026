@@ -53,4 +53,8 @@ export const translations = {
     description_fourth:
       "Zameriavam sa hlavne na React/Next.js, automatizované testovanie. Na testovanie používam rôzne nástroje a frameworky ako sú cypress/playwright, postman, pytest a iné.",
   },
+
+  loginPage: {
+    backToHome: "Späť na hlavnú stránku",
+  },
 };

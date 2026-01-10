@@ -2,6 +2,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
+import next from "../../pictures/next.svg";
+import postman from "../../pictures/postman.svg";
+import cypress from "../../pictures/cypress.svg";
+import playwright from "../../pictures/playwright.svg";
+import react from "../../pictures/react.png";
+import tailwind from "../../pictures/tailwind.png";
 
 export const AboutMe = () => {
   const descriptions = useMemo(
@@ -17,6 +23,8 @@ export const AboutMe = () => {
   const [showCursor, setShowCursor] = useState(true);
   const [showSmejo, setShowSmejo] = useState(false);
 
+  const images = [next, postman, cypress, playwright, react, tailwind];
+
   useEffect(() => {
     let currentIndex = 0;
     let charIndex = 0;
@@ -27,7 +35,8 @@ export const AboutMe = () => {
       const text = t(descriptions[currentIndex]);
 
       if (!isDeleting && charIndex <= text.length) {
-        setDisplayText(text.slice(0, charIndex++));
+        setDisplayText(text.substring(0, charIndex));
+        charIndex++;
         timeoutId = setTimeout(type, 100);
       } else if (!isDeleting) {
         timeoutId = setTimeout(() => {
@@ -35,7 +44,8 @@ export const AboutMe = () => {
           type();
         }, 1500);
       } else if (charIndex > 0) {
-        setDisplayText(text.slice(0, --charIndex));
+        charIndex--;
+        setDisplayText(text.substring(0, charIndex));
         timeoutId = setTimeout(type, 50);
       } else {
         isDeleting = false;
@@ -198,6 +208,32 @@ export const AboutMe = () => {
             }}
           />
         </div>
+      </div>
+      <div {...{ className: "overflow-hidden w-full mt-10" }}>
+        <motion.div
+          {...{
+            className: "flex gap-20 items-center p-4 whitespace-nowrap",
+            initial: { x: 0 },
+            animate: { x: "-50%" },
+            transition: {
+              duration: 10,
+              repeat: Infinity,
+              ease: "linear",
+              repeatType: "reverse",
+            },
+          }}
+        >
+          {[...images, ...images].map((image, index) => (
+            <img
+              key={index}
+              {...{
+                src: image.src,
+                alt: "logos",
+                className: "h-[70px] w-auto",
+              }}
+            />
+          ))}
+        </motion.div>
       </div>
     </div>
   );

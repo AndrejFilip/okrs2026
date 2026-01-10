@@ -3,8 +3,8 @@
 
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Sellers } from "./Sellers";
-import { AboutMe } from "./AboutMe";
+import { Sellers } from "../Sellers";
+import { AboutMe } from "../AboutMe";
 
 export default function Home() {
   const { t } = useTranslation();
