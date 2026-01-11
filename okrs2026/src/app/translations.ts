@@ -56,5 +56,11 @@ export const translations = {
 
   loginPage: {
     backToHome: "Späť na hlavnú stránku",
+    username: "Email",
+    password: "Heslo",
+    login: "Prihlásiť sa do systému",
+    loginButton: "Prihlásiť sa",
+    loginSuccessToastHeader: "Úspešne prihlásený!",
+    loginSuccessToastMessage: "Používateľ bol úspešne prihlásený do systému.",
   },
 };
