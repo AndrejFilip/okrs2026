@@ -7,30 +7,42 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { IoBicycle } from "react-icons/io5";
-import { z } from "zod";
 import { toast } from "react-toastify";
 import { useToast } from "@/app/hooks/useToast";
 
-type LoginForm = z.infer<typeof loginSchema>;
+import { UserLoginAction } from "../../../../../lib/actions/auth";
+import { LoginForm } from "../../../../../lib/types/types";
 
 export const Login = () => {
   const { t } = useTranslation();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginForm>({ resolver: zodResolver(loginSchema) });
 
   const { customToast } = useToast();
 
-  const onSubmit = () => {
-    toast(
-      customToast({
-        header: t("loginPage.loginSuccessToastHeader"),
-        message: t("loginPage.loginSuccessToastMessage"),
-        variant: "success",
-      })
-    );
+  const onSubmit = async (data: LoginForm) => {
+    const result = await UserLoginAction(data);
+
+    if (result) {
+      toast(
+        customToast({
+          header: "Error",
+          message: result.message,
+          variant: "error",
+        })
+      );
+    } else {
+      toast(
+        customToast({
+          header: t("loginPage.loginSuccessToastHeader"),
+          message: t("loginPage.loginSuccessToastMessage"),
+          variant: "success",
+        })
+      );
+    }
   };
 
   return (
@@ -90,7 +102,7 @@ export const Login = () => {
           <button
             {...{
               className:
-                "bg-white border border-1 border-slate-800 text-slate-800 p-4 rounded-lg cursor-pointer font-bold hover:bg-slate-800 hover:text-white font-mono",
+                "bg-white border border-1 border-slate-800 text-slate-800 p-4 rounded-lg cursor-pointer font-bold hover:bg-slate-800 hover:text-white font-mono disabled:bg-gray-300 disabled:border-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed",
               type: "submit",
             }}
           >

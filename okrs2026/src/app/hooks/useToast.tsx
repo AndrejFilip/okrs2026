@@ -1,5 +1,6 @@
 import React from "react";
 import { IoIosCheckmark } from "react-icons/io";
+import { RxCross1 } from "react-icons/rx";
 
 interface ToastProps {
   header: string;
@@ -24,7 +25,13 @@ export const useToast = () => {
             }`,
           }}
         >
-          <IoIosCheckmark {...{ className: "w-[40px] h-[40px] text-white" }} />
+          {variant === "success" ? (
+            <IoIosCheckmark
+              {...{ className: "w-[40px] h-[40px] text-white" }}
+            />
+          ) : (
+            <RxCross1 {...{ className: "w-[40px] h-[40px] text-white" }} />
+          )}
         </div>
         <div {...{ className: "flex flex-col gap-2" }}>
           <span {...{ className: "font-mono font-bold text-black text-md" }}>
