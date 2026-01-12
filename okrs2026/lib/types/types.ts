@@ -5,16 +5,9 @@ export interface User {
   id: number;
   google_id?: string | null;
   email: string;
-  password: string;
+  password: string | null; // due to google auth
   name: string;
-  bike: string;
-  role: string;
+  bike: string | null;
 }
-
-export type FormState = {
-  status_code: number;
-  message: string;
-  errors?: Record<string, string[]>;
-} | null;
 
 export type LoginForm = z.infer<typeof loginSchema>;
