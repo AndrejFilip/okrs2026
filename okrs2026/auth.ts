@@ -2,8 +2,9 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { db } from "./lib/db";
+import { users, type User } from "./lib/db/schema";
+import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
-import { User } from "./lib/types/types";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -19,17 +20,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         try {
-          const [rows] = await db.execute(
-            `SELECT * FROM Users WHERE email = ?`,
-            [credentials.email]
-          );
-          const users = rows as User[];
+          // Drizzle: SELECT * FROM Users WHERE email = ?
+          const user: User = await db
+            .select()
+            .from(users)
+            .where(eq(users.email, credentials.email as string))
+            .limit(1)
+            .then((rows) => rows[0]);
 
-          if (users.length === 0) {
+          if (!user) {
             return null;
           }
-
-          const user = users[0];
 
           const isPasswordValid = await bcrypt.compare(
             credentials.password as string,
@@ -59,18 +60,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async signIn({ user, account }) {
       if (account?.provider === "google") {
         try {
-          //verify if user exists
-          const [rows] = await db.execute(
-            `SELECT * FROM Users WHERE email = ?`,
-            [user.email]
-          );
-          const users = rows as User[];
+          // Drizzle: Check if user exists
+          const existingUser: User | undefined = await db
+            .select()
+            .from(users)
+            .where(eq(users.email, user.email as string))
+            .limit(1)
+            .then((rows) => rows[0]);
 
-          if (users.length === 0) {
-            await db.execute(
-              "INSERT INTO Users (name, email, google_id) VALUES (?, ?, ?)",
-              [user.name, user.email, user.id]
-            );
+          if (!existingUser) {
+            // Drizzle: INSERT new Google user
+            await db.insert(users).values({
+              google_id: user.id,
+              email: user.email as string,
+              password: null,
+              name: user.name as string,
+              bike: null,
+            });
           }
         } catch (error) {
           console.error("Google sign-in error:", error);

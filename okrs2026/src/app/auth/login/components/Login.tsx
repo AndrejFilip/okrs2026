@@ -16,6 +16,7 @@ import { FaGoogle } from "react-icons/fa";
 import { redirect } from "next/navigation";
 import { Loader } from "@/app/app/components/Loader";
 import { Divider } from "@/app/app/components/Divider";
+import { ErrorMessage } from "./ErrorMessage";
 
 export const Login = () => {
   const { t } = useTranslation();
@@ -89,13 +90,7 @@ export const Login = () => {
               ...register("email"),
             }}
           />
-          {errors.email ? (
-            <span
-              {...{ className: "text-red-400 text-xs font-mono font-bold" }}
-            >
-              {errors.email.message}
-            </span>
-          ) : null}
+          <ErrorMessage {...{ message: errors.email?.message }} />
           <input
             {...{
               className: `border p-4 rounded-lg border-2 border-solid ${errors.password ? "border-red-400" : "border-gray-300"} hover:border-slate-800 font-mono`,
@@ -104,13 +99,7 @@ export const Login = () => {
               ...register("password"),
             }}
           />
-          {errors.password ? (
-            <span
-              {...{ className: "text-red-400 text-xs font-mono font-bold" }}
-            >
-              {errors.password.message}
-            </span>
-          ) : null}
+          <ErrorMessage {...{ message: errors.password?.message }} />
           <button
             {...{
               className:
