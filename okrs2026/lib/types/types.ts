@@ -3,10 +3,10 @@ import z from "zod";
 
 export interface User {
   id: number;
+  google_id?: string | null;
   email: string;
   password: string;
-  first_name: string;
-  last_name: string;
+  name: string;
   bike: string;
   role: string;
 }

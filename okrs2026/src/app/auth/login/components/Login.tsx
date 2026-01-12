@@ -10,11 +10,16 @@ import { IoBicycle } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { useToast } from "@/app/hooks/useToast";
 
-import { UserLoginAction } from "../../../../../lib/actions/auth";
 import { LoginForm } from "../../../../../lib/types/types";
+import { signIn } from "next-auth/react";
+import { FaGoogle } from "react-icons/fa";
+import { redirect } from "next/navigation";
+import { Loader } from "@/app/app/components/Loader";
+import { Divider } from "@/app/app/components/Divider";
 
 export const Login = () => {
   const { t } = useTranslation();
+  const [isGoogleLoading, setIsGoogleLoading] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -24,26 +29,33 @@ export const Login = () => {
   const { customToast } = useToast();
 
   const onSubmit = async (data: LoginForm) => {
-    const result = await UserLoginAction(data);
+    const result = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
 
-    if (result) {
+    if (result?.error) {
       toast(
         customToast({
-          header: "Error",
-          message: result.message,
+          header: t("loginPage.LoggingFailure"),
+          message: t("loginPage.loginSuccessToastMessage"),
           variant: "error",
         })
       );
     } else {
-      toast(
-        customToast({
-          header: t("loginPage.loginSuccessToastHeader"),
-          message: t("loginPage.loginSuccessToastMessage"),
-          variant: "success",
-        })
-      );
+      redirect("/app/dashboard");
     }
   };
+
+  const handleGoogleSignIn = () => {
+    setIsGoogleLoading(true);
+    signIn("google", { redirectTo: "/app/dashboard" });
+  };
+
+  if (isSubmitting || isGoogleLoading) {
+    return <Loader />;
+  }
 
   return (
     <div>
@@ -102,13 +114,25 @@ export const Login = () => {
           <button
             {...{
               className:
-                "bg-white border border-1 border-slate-800 text-slate-800 p-4 rounded-lg cursor-pointer font-bold hover:bg-slate-800 hover:text-white font-mono disabled:bg-gray-300 disabled:border-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed",
+                "bg-white border border-1 border-slate-800 text-slate-800 p-4 rounded-lg cursor-pointer font-bold hover:bg-slate-800 hover:text-white font-mono",
               type: "submit",
             }}
           >
-            {t("loginPage.loginButton")}
+            {t("loginPage.loginButtonWithEmail")}
           </button>
         </form>
+        <Divider {...{ label: t("loginPage.or") }} />
+        <button
+          {...{
+            className:
+              "w-full border items-center justify-evenly flex p-4 rounded-lg cursor-pointer font-bold hover:bg-slate-800 hover:text-white font-mono text-center",
+            onClick: handleGoogleSignIn,
+            type: "button",
+          }}
+        >
+          <FaGoogle {...{ className: "w-[20px] h-[20px]" }} />{" "}
+          {t("loginPage.loginWithGoogle")}
+        </button>
       </div>
     </div>
   );
