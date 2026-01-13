@@ -56,5 +56,14 @@ export const translations = {
 
   loginPage: {
     backToHome: "Späť na hlavnú stránku",
+    username: "Email",
+    password: "Heslo",
+    login: "Prihlásiť sa do systému",
+    loginButtonWithEmail: "Prihlásiť sa cez email",
+    loginWithGoogle: "Prihlásiť sa cez Google",
+    LoggingFailure: "Chyba pri prihlasovaní",
+    loginSuccessToastMessage: "Zlé prihlasovacie údaje, skúste to znova.",
+    loading: "Načítavanie...",
+    or: "alebo",
   },
 };

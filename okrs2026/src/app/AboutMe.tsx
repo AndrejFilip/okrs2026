@@ -8,6 +8,7 @@ import cypress from "../../pictures/cypress.svg";
 import playwright from "../../pictures/playwright.svg";
 import react from "../../pictures/react.png";
 import tailwind from "../../pictures/tailwind.png";
+import me from "../../pictures/me.jpg";
 
 export const AboutMe = () => {
   const descriptions = useMemo(
@@ -202,9 +203,9 @@ export const AboutMe = () => {
         <div>
           <img
             {...{
-              src: "https://scontent.fbts7-1.fna.fbcdn.net/v/t39.30808-1/216424219_4788888187794952_2334296943765657119_n.jpg?stp=c336.0.1341.1341a_dst-jpg_s480x480_tt6&_nc_cat=108&ccb=1-7&_nc_sid=e99d92&_nc_ohc=6VMulkuHbPIQ7kNvwGG4o0T&_nc_oc=Adl0pb6D-rfl9QoWwnNkjHTfeC-MgZUBWr3sp2N43K_sS6ZyXFj43oCubO0Heh5dnMk7YwDsJL4tOsSQkhqrf_VI&_nc_zt=24&_nc_ht=scontent.fbts7-1.fna&_nc_gid=azbuSOLFhxSCOnpzVjGNdQ&oh=00_AfpoRzlysVjAFLuLBTm53PCoEZrr6bJUAu3UktplrmE7kQ&oe=69609293",
+              src: me.src,
               alt: "Description",
-              className: "w-[400px] rounded-full  hidden md:block",
+              className: "w-[400px] h-auto rounded-full hidden md:block",
             }}
           />
         </div>
