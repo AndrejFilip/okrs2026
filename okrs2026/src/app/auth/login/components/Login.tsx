@@ -16,7 +16,7 @@ import { FaGoogle } from "react-icons/fa";
 import { redirect } from "next/navigation";
 import { Loader } from "@/app/app/components/Loader";
 import { Divider } from "@/app/app/components/Divider";
-import { ErrorMessage } from "./ErrorMessage";
+import { ErrorMessage } from "../../../app/components/ErrorMessage";
 
 export const Login = () => {
   const { t } = useTranslation();
@@ -122,6 +122,22 @@ export const Login = () => {
           <FaGoogle {...{ className: "w-[20px] h-[20px]" }} />{" "}
           {t("loginPage.loginWithGoogle")}
         </button>
+      </div>
+
+      <div {...{ className: "flex justify-center items-center mt-4" }}>
+        <span {...{ className: "text-sm font-mono text-gray-500" }}>
+          {t("loginPage.noAccountYet")}{" "}
+          <Link {...{ href: "/auth/activate" }}>
+            <span
+              {...{
+                className:
+                  "text-sm font-mono text-slate-800 font-bold hover:text-orange-600",
+              }}
+            >
+              {t("loginPage.registerNow")}
+            </span>
+          </Link>
+        </span>
       </div>
     </div>
   );

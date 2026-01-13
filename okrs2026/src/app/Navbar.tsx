@@ -49,7 +49,7 @@ export const Navbar = () => {
         </Link>
         <Link
           {...{
-            href: "/signup",
+            href: "/auth/activate",
             className:
               "border border-slate-800 w-[200px] rounded-md hover:bg-slate-800 hover:text-white p-2 text-center",
           }}
@@ -117,7 +117,7 @@ export const Navbar = () => {
             <li {...{ className: "py-2 px-4" }}>
               <Link
                 {...{
-                  href: "/signup",
+                  href: "/auth/activate",
                   className:
                     "block border border-slate-800 text-slate rounded px-4 py-2 text-center hover:bg-slate-800 hover:text-white",
                 }}

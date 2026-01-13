@@ -1,5 +1,3 @@
-import { desc, small } from "motion/react-client";
-
 export const translations = {
   mtbiker: "MTBIKER",
   cykloshop: "Cykloshop",
@@ -65,5 +63,23 @@ export const translations = {
     loginSuccessToastMessage: "Zlé prihlasovacie údaje, skúste to znova.",
     loading: "Načítavanie...",
     or: "alebo",
+    noAccountYet: "Ešte nemáš účet?",
+    registerNow: "Zaregistruj sa teraz!",
+  },
+
+  activationPage: {
+    activateYourAccount: "Aktivuj svoj účet",
+    email: "Email",
+    name: "Meno",
+    password: "Heslo",
+    bike: "Bicykel",
+    retypePassword: "Zopakuj heslo",
+    mustBeAtLeast6Chars: "Heslo musí mať aspoň 6 znakov",
+    mustContaintUppercase: "Heslo musí obsahovať aspoň jedno veľké písmeno",
+    mustContaintNumber: "Heslo musí obsahovať aspoň jedno číslo",
+    activationFailure: "Chyba pri aktivácii účtu",
+    äctivationFailureToastMessage: "Aktivácia účtu zlyhala, skúste to znova.",
+    activationOk: "Účet aktivovaný",
+    activationSuccessToastMessage: "Účet bol úspešne aktivovaný.",
   },
 };
