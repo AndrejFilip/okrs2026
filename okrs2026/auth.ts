@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { db } from "./lib/db";
-import { users, type User } from "./lib/db/schema";
+import { stats, users, type User } from "./lib/db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
@@ -34,7 +34,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           const isPasswordValid = await bcrypt.compare(
             credentials.password as string,
-            user.password as string
+            user.password as string,
           );
 
           if (!isPasswordValid) {
@@ -68,14 +68,29 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             .limit(1)
             .then((rows) => rows[0]);
 
-          if (!existingUser) {
+          if (existingUser) {
+            user.id = existingUser.id.toString();
+          } else {
             // Drizzle: INSERT new Google user
-            await db.insert(users).values({
-              google_id: user.id,
-              email: user.email as string,
-              password: null,
-              name: user.name as string,
-              bike: null,
+            const [newUser] = await db
+              .insert(users)
+              .values({
+                google_id: user.id,
+                email: user.email as string,
+                password: null,
+                name: user.name as string,
+                bike: null,
+              })
+              .$returningId();
+
+            // Priradíme nové ID z databázy
+            user.id = newUser.id.toString();
+
+            await db.insert(stats).values({
+              user_id: newUser.id,
+              kilometers: 0,
+              elevation: 0,
+              calories: 0,
             });
           }
         } catch (error) {

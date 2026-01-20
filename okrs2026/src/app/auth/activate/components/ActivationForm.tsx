@@ -7,12 +7,12 @@ import { MdAccountCircle, MdError } from "react-icons/md";
 import { ActivationForm as ActivationFormType } from "../../../../../lib/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { activationSchema } from "@/app/schemas/loginSchema";
-import { ErrorMessage } from "@/app/app/components/ErrorMessage";
+import { ErrorMessage } from "@/app/components/ErrorMessage";
 import { ActivateUser } from "../../../../../lib/actions/auth";
 import { toast } from "react-toastify";
 import { useToast } from "@/app/hooks/useToast";
 import { redirect } from "next/navigation";
-import { Loader } from "@/app/app/components/Loader";
+import { Loader } from "@/app/components/Loader";
 
 export const ActivationForm = () => {
   const { t } = useTranslation();
@@ -46,7 +46,7 @@ export const ActivationForm = () => {
           header: t("activationPage.activationFailure"),
           message: t("activationPage.äctivationFailureToastMessage"),
           variant: "error",
-        })
+        }),
       );
     } else {
       toast(
@@ -54,7 +54,7 @@ export const ActivationForm = () => {
           header: t("activationPage.activationOk"),
           message: t("activationPage.activationSuccessToastMessage"),
           variant: "success",
-        })
+        }),
       );
 
       redirect("/auth/login");

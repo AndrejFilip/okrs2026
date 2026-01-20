@@ -82,4 +82,30 @@ export const translations = {
     activationOk: "Účet aktivovaný",
     activationSuccessToastMessage: "Účet bol úspešne aktivovaný.",
   },
+
+  sideBar: {
+    home: "Bike Top",
+    dashboard: "Dashboard",
+    trips: "Výjazdy",
+    community: "Komunita",
+    settings: "Nastavenia",
+    logout: "Odhlásiť sa",
+  },
+
+  logOutModal: {
+    areYouSure: "Si si istý?",
+    logOutMessage: "Budeš odhlásený zo svojho účtu.",
+    cancel: "Zrušiť",
+    logOut: "Odhlásiť sa",
+  },
+
+  dashboard: {
+    label: "Dashboard",
+    kilometers: "Celkové prejdené kilometre",
+    elevation: "Celkové výškové metre",
+    totalCalories: "Celkové spálené kalórie",
+    lastTripOverviewlabel: "Prehľad posledného výjazdu",
+    emptyTrips:
+      "Zatiaľ nemáš žiadne výjazdy. Začni jazdiť a pridaj svoj prvý výjazd!",
+  },
 };
