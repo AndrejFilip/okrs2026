@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 
@@ -37,13 +37,13 @@ export const Sellers = () => {
     },
   ];
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setIndex((prevIndex) => (prevIndex + 1) % sellers.length);
-  };
+  }, [sellers.length]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     setIndex((prevIndex) => (prevIndex - 1 + sellers.length) % sellers.length);
-  };
+  }, [sellers.length]);
 
   return (
     <div {...{ className: "mt-20 font-mono text-slate-800" }}>

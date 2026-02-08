@@ -3,7 +3,7 @@
 import bcrypt from "bcryptjs";
 import { db } from "../db";
 import { eq } from "drizzle-orm";
-import { User, users } from "../db/schema";
+import { stats, User, users } from "../db/schema";
 import { ActivationForm } from "../types/types";
 
 export const ActivateUser = async (data: ActivationForm) => {
@@ -12,7 +12,7 @@ export const ActivateUser = async (data: ActivationForm) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   if (!email || !name || !password) {
-    return { status_code: 400, message: "Missing required fields" };
+    throw new Error("Missing required fields");
   }
 
   try {
@@ -26,11 +26,21 @@ export const ActivateUser = async (data: ActivationForm) => {
       return { status_code: 409, message: "User already exists" };
     }
 
-    await db.insert(users).values({
-      email,
-      name,
-      bike: bike || null,
-      password: hashedPassword,
+    const [newUser] = await db
+      .insert(users)
+      .values({
+        email,
+        name,
+        bike: bike || null,
+        password: hashedPassword,
+      })
+      .$returningId();
+
+    await db.insert(stats).values({
+      user_id: newUser.id,
+      kilometers: 0,
+      elevation: 0,
+      calories: 0,
     });
   } catch (error) {
     console.error("Activation error:", error);

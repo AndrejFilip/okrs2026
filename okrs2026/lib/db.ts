@@ -8,8 +8,12 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: 3,
+  maxIdle: 2,
+  idleTimeout: 30000,
   queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0,
 });
 
 export const db = drizzle(pool, { schema, mode: "default" });

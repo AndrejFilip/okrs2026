@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import { loginSchema } from "@/app/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -14,9 +14,9 @@ import { LoginForm } from "../../../../../lib/types/types";
 import { signIn } from "next-auth/react";
 import { FaGoogle } from "react-icons/fa";
 import { redirect } from "next/navigation";
-import { Loader } from "@/app/app/components/Loader";
-import { Divider } from "@/app/app/components/Divider";
-import { ErrorMessage } from "../../../app/components/ErrorMessage";
+import { Loader } from "@/app/components/Loader";
+import { Divider } from "@/app/components/Divider";
+import { ErrorMessage } from "../../../components/ErrorMessage";
 
 export const Login = () => {
   const { t } = useTranslation();
@@ -42,17 +42,17 @@ export const Login = () => {
           header: t("loginPage.LoggingFailure"),
           message: t("loginPage.loginSuccessToastMessage"),
           variant: "error",
-        })
+        }),
       );
     } else {
       redirect("/app/dashboard");
     }
   };
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = useCallback(() => {
     setIsGoogleLoading(true);
     signIn("google", { redirectTo: "/app/dashboard" });
-  };
+  }, []);
 
   if (isSubmitting || isGoogleLoading) {
     return <Loader />;

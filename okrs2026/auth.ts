@@ -68,15 +68,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             .limit(1)
             .then((rows) => rows[0]);
 
-          if (!existingUser) {
+          if (existingUser) {
+            user.id = existingUser.id.toString();
+          } else {
             // Drizzle: INSERT new Google user
-            await db.insert(users).values({
-              google_id: user.id,
-              email: user.email as string,
-              password: null,
-              name: user.name as string,
-              bike: null,
-            });
+            const [newUser] = await db
+              .insert(users)
+              .values({
+                google_id: user.id,
+                email: user.email as string,
+                password: null,
+                name: user.name as string,
+                bike: null,
+              })
+              .$returningId();
+
+            // Priradíme nové ID z databázy
+            user.id = newUser.id.toString();
           }
         } catch (error) {
           console.error("Google sign-in error:", error);
