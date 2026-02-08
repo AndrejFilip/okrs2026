@@ -13,7 +13,12 @@ export default async function AppLayout({
         className: "w-full min-h-screen flex",
       }}
     >
-      <div {...{ className: "w-[80px] lg:w-[280px] bg-slate-800 p-3 lg:p-5" }}>
+      <div
+        {...{
+          className:
+            "w-[80px] lg:w-[280px] bg-slate-800 p-3 lg:p-5 sticky top-0 h-screen",
+        }}
+      >
         <SideBar {...{ session }} />
       </div>
       <div {...{ className: "flex-1" }}>{children}</div>

@@ -19,16 +19,6 @@ export const users = mysqlTable("Users", {
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 
-export const stats = mysqlTable("Stats", {
-  user_id: int("user_id").primaryKey().notNull(),
-  kilometers: float("kilometers").notNull(),
-  elevation: float("elevation").notNull(),
-  calories: float("calories").notNull(),
-});
-
-export type Stat = typeof stats.$inferSelect;
-export type NewStat = typeof stats.$inferInsert;
-
 export const trips = mysqlTable("Trips", {
   id: int("id").primaryKey().autoincrement().notNull(),
   user_id: int("user_id")
@@ -39,7 +29,8 @@ export const trips = mysqlTable("Trips", {
   elevation: float("elevation").notNull(),
   calories: float("calories").notNull(),
   time: time("time").notNull(),
+  watts: int("watts").notNull(),
+  name: varchar("Name", { length: 255 }).notNull(),
 });
 
 export type Trip = typeof trips.$inferSelect;
-export type NewTrip = typeof trips.$inferInsert;

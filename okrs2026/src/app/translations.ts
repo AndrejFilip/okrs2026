@@ -104,8 +104,21 @@ export const translations = {
     kilometers: "Celkové prejdené kilometre",
     elevation: "Celkové výškové metre",
     totalCalories: "Celkové spálené kalórie",
-    lastTripOverviewlabel: "Prehľad posledného výjazdu",
+    lastTripOverviewlabel: "Posledný výjazd",
     emptyTrips:
       "Zatiaľ nemáš žiadne výjazdy. Začni jazdiť a pridaj svoj prvý výjazd!",
+
+    lastTrip: {
+      kilometers: "Prejdené kilometre",
+      elevation: "Výškové metre",
+      calories: "Kalórie",
+      date: "Dátum",
+      duration: "Čas",
+      watts: "Watty",
+    },
+
+    lastFiveTripsWidget: {
+      label: "Posledné výjazdy",
+    },
   },
 };

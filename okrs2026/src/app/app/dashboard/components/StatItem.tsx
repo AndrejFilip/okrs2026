@@ -23,15 +23,15 @@ export const StatItem = memo(
         <div
           {...{
             className:
-              "flex flex-col gap-4 items-center text-mono justify-center",
+              "flex flex-col gap-4 items-center font-mono justify-center",
           }}
         >
-          <span {...{ className: "text-xl" }}>{title}</span>
+          <span {...{ className: "text-md" }}>{title}</span>
           <span {...{ className: "text-3xl font-bold" }}>
-            {value} {unit}
+            {value.toFixed(2)} {unit}
           </span>
         </div>
       </div>
     );
-  },
+  }
 );

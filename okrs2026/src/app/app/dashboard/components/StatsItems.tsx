@@ -4,7 +4,7 @@ import React, { memo } from "react";
 import { useTranslation } from "react-i18next";
 import { StatItem } from "./StatItem";
 import { IoSpeedometerOutline } from "react-icons/io5";
-import { PiCellSignalHighBold } from "react-icons/pi";
+import { FaMountainSun } from "react-icons/fa6";
 import { FaBurn } from "react-icons/fa";
 import { LastTripOverview } from "./LastTripOverview";
 import { Trip } from "../../../../../lib/db/schema";
@@ -44,7 +44,7 @@ export const StatsItems = memo(
               title: t("dashboard.elevation"),
               value: elevation,
               unit: "m",
-              icon: <PiCellSignalHighBold {...{ className: "w-10 h-10" }} />,
+              icon: <FaMountainSun {...{ className: "w-10 h-10" }} />,
             }}
           />
 
@@ -57,8 +57,9 @@ export const StatsItems = memo(
             }}
           />
         </div>
+
         <LastTripOverview {...{ lastTrip }} />
       </div>
     );
-  },
+  }
 );
